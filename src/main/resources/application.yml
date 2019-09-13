@@ -10,9 +10,10 @@ spring:
   jpa:
     hibernate:
       # possible values: validate | update | create | create-drop
-      ddl-auto: create-drop
+      ddl-auto: update
   datasource:
     url: jdbc:mysql://localhost/student-manager
     username: root
     password:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+

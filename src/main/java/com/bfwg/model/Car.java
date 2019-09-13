@@ -1,10 +1,9 @@
 package com.bfwg.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import com.bfwg.dto.CarDto;
 
 import javax.persistence.*;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name="CAR")
@@ -14,10 +13,10 @@ public class Car {
     private long id;
 
     private String name;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "model", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+//    @NotFound(
+//            action = NotFoundAction.IGNORE)
+    @JoinColumn(name = "model_id", nullable = false)
     private ModelCar model;
     private String size;
     private int seatingCapacity;
@@ -28,6 +27,15 @@ public class Car {
 
 
     public Car() {
+    }
+
+    public Car(CarDto carDto) {
+      this.name = carDto.getName();
+      this.airConditioner = carDto.getAirConditioner();
+      this.driver = carDto.getDriver();
+      this.price = carDto.getPrice();
+      this.seatingCapacity = carDto.getSeatingCapacity();
+      this.size = carDto.getSize();
     }
 
     public long getId() {

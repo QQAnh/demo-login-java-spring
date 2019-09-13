@@ -1,5 +1,6 @@
 package com.bfwg.model;
 
+import com.bfwg.dto.UserDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.joda.time.DateTime;
 import org.springframework.security.core.GrantedAuthority;
@@ -65,6 +66,15 @@ public class User implements UserDetails {
     private List<Authority> authorities;
 
     public User() {
+    }
+
+    public User(UserDto userDto) {
+        this.username = userDto.getUsername();
+        this.email = userDto.getEmail();
+        this.firstName = userDto.getFirstName();
+        this.lastName = userDto.getLastName();
+        this.password = userDto.getPassword();
+        this.phoneNumber = userDto.getPhoneNumber();
     }
 
     public Long getId() {

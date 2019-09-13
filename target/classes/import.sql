@@ -6,7 +6,7 @@ INSERT INTO AUTHORITY (id, name) VALUES (1, 'ROLE_USER');
 INSERT INTO AUTHORITY (id, name) VALUES (2, 'ROLE_ADMIN');
 
 INSERT INTO `modelcar` (`id`, `name`) VALUES ('1', 'Toshiba');
-INSERT INTO `car` (`id`, `air_conditioner`, `driver`, `name`, `price`, `seating_capacity`, `size`, `model`) VALUES ('1', '123123', '1', 'qweqwe', '123123', '123123', 'wqe', '1');
+INSERT INTO `car` (`id`, `air_conditioner`, `driver`, `name`, `price`, `seating_capacity`, `size`, `model_id`) VALUES ('1', '123123', '1', 'qweqwe', '123123', '123123', 'wqe', '1');
 
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (1, 1);
 INSERT INTO USER_AUTHORITY (user_id, authority_id) VALUES (2, 1);

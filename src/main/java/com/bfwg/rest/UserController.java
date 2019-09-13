@@ -1,10 +1,13 @@
 package com.bfwg.rest;
 
+import com.bfwg.dto.UserDto;
 import com.bfwg.model.User;
 import com.bfwg.repository.UserRepository;
 import com.bfwg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -41,32 +44,17 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public User createPost(@Valid @RequestBody Request request) {
+    public ResponseEntity<Object> createPost(@Valid @RequestBody UserDto userDto) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        System.out.println(request.password);
-        System.out.println(request);
-        User user = new User();
-        user.setPassword(bCryptPasswordEncoder.encode(request.password));
-        user.setPassword(request.username);
-        user.setPassword(request.firstName);
-        user.setPassword(request.lastName);
-        user.setPassword(request.phoneNumber);
-
-//        System.out.println(bCryptPasswordEncoder.encode(passwordChanger.password));
-
-        return userRepository.save(user);
+        userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+        User user = new User(userDto);
+        userRepository.save(user);
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("CREATE USER SUCCESS!")
+                .setData(" (-_-) ")
+                .build(), HttpStatus.OK);
     }
-    static class Request {
-        public String password;
-        public String username;
-        public String firstName;
-        public String lastName;
-        public String email;
-        public String phoneNumber;
-        public int enabled;
-
-    }
-
     /*
      *  We are not using userService.findByUsername here(we could),
      *  so it is good that we are making sure that the user has role "ROLE_USER"
