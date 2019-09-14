@@ -2,35 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7df77afd-21d5-453a-88fe-fa28b90294a8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_json_json_20180813.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/demo.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/config/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/model/Car.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/model/Car.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/model/Flight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/model/Flight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/model/ModelCar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/model/ModelCar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/model/Tour.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/model/Tour.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/model/TourType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/model/TourType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/rest/CarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/rest/CarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/rest/ModelCarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/rest/ModelCarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/rest/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/rest/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/import.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/config/WebSecurityConfig$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/config/WebSecurityConfig$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/config/WebSecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/config/WebSecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/model/Car.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/model/Car.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/model/ModelCar.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/model/ModelCar.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/model/TourType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/model/TourType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/model/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/rest/CarController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/rest/CarController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/rest/ModelCarController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/rest/ModelCarController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/rest/UserController$Request.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/rest/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/rest/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/import.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README_cn.md" beforeDir="false" afterPath="$PROJECT_DIR$/README_cn.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/rest/TourController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/rest/TourController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/rest/TourTypeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/rest/TourTypeController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -46,6 +21,18 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bfwg/model/ModelCar.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="188">
+              <caret line="14" column="24" lean-forward="true" selection-start-line="12" selection-start-column="3" selection-end-line="14" selection-end-column="24" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bfwg/rest/CarController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="650">
@@ -60,8 +47,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bfwg/rest/TourController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="108" column="9" lean-forward="true" selection-start-line="108" selection-start-column="9" selection-end-line="108" selection-end-column="9" />
+            <state relative-caret-position="133">
+              <caret line="89" column="40" selection-start-line="89" selection-start-column="40" selection-end-line="89" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -72,8 +59,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bfwg/rest/TourTypeController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-397">
-              <caret line="24" column="39" lean-forward="true" selection-start-line="24" selection-start-column="39" selection-end-line="24" selection-end-column="39" />
+            <state relative-caret-position="22">
+              <caret line="59" column="48" selection-start-line="59" selection-start-column="28" selection-end-line="59" selection-end-column="48" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -81,7 +68,27 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor />
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README_cn.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor />
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bfwg/rest/FlightController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="315">
@@ -124,39 +131,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
               <caret line="12" lean-forward="true" selection-start-line="8" selection-start-column="3" selection-end-line="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/bfwg/config/WebSecurityConfig.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="96" column="55" selection-start-line="96" selection-start-column="55" selection-end-line="96" selection-end-column="55" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/bfwg/repository/FlightRepository.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="57" selection-start-line="12" selection-start-column="57" selection-end-line="12" selection-end-column="57" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/bfwg/repository/TourRepository.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="16" selection-start-line="14" selection-end-line="15" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -221,7 +195,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/bfwg/dto/TourTypeDto.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bfwg/model/ModelCar.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bfwg/rest/ModelCarController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfwg/rest/TourTypeController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bfwg/model/TourType.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bfwg/repository/TourTypeRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bfwg/repository/CarRepository.java" />
@@ -233,9 +206,12 @@
         <option value="$PROJECT_DIR$/src/main/java/com/bfwg/config/WebSecurityConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bfwg/model/Flight.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bfwg/dto/FlightDto.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bfwg/rest/TourController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bfwg/rest/FlightController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bfwg/rest/CarController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfwg/rest/TourController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bfwg/rest/TourTypeController.java" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/README_cn.md" />
       </list>
     </option>
   </component>
@@ -466,12 +442,12 @@
       <workItem from="1568274930805" duration="2844000" />
       <workItem from="1568280175309" duration="3591000" />
       <workItem from="1568285806255" duration="10926000" />
-      <workItem from="1568341063426" duration="21862000" />
+      <workItem from="1568341063426" duration="22669000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43543000" />
+    <option name="totallyTimeSpent" value="44350000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="777" extended-state="0" />
@@ -488,14 +464,14 @@
       <window_info id="Web" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3138686" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3138686" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Application Servers" order="7" />
       <window_info anchor="bottom" id="Spring" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.329927" />
+      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.329927" />
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="12" weight="0.329927" />
@@ -519,28 +495,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bfwg/rest/AuthenticationControllerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="146" column="35" selection-start-line="146" selection-start-column="35" selection-end-line="146" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bfwg/security/TokenHelperTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="67" column="16" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5218#5219#0" expanded="true" />
-            <element signature="e#5289#5290#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bfwg/repository/UserRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -803,16 +757,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfwg/model/ModelCar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="17" column="26" lean-forward="true" selection-start-line="16" selection-start-column="2" selection-end-line="17" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bfwg/model/TourType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="94">
@@ -950,26 +894,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfwg/rest/TourTypeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-397">
-          <caret line="24" column="39" lean-forward="true" selection-start-line="24" selection-start-column="39" selection-end-line="24" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfwg/rest/TourController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="108" column="9" lean-forward="true" selection-start-line="108" selection-start-column="9" selection-end-line="108" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bfwg/rest/CarController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="650">
@@ -987,6 +911,52 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfwg/model/ModelCar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="14" column="24" lean-forward="true" selection-start-line="12" selection-start-column="3" selection-end-line="14" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfwg/rest/TourController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="89" column="40" selection-start-line="89" selection-start-column="40" selection-end-line="89" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bfwg/rest/TourTypeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="59" column="48" selection-start-line="59" selection-start-column="28" selection-end-line="59" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README_cn.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor />
+          <second_editor />
         </state>
       </provider>
     </entry>

@@ -57,7 +57,7 @@ public class TourTypeController {
                 .build(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/tourType/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/tourType/edit/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> get(@PathVariable Long id,@Valid @RequestBody TourTypeDto tourTypeDto){
         Optional<TourType> tourType = tourTypeRepository.findById(id);
         if (!tourType.isPresent()){
