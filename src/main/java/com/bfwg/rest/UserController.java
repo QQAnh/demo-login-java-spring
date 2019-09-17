@@ -1,7 +1,10 @@
 package com.bfwg.rest;
 
 import com.bfwg.dto.UserDto;
+import com.bfwg.model.Authority;
 import com.bfwg.model.User;
+import com.bfwg.model.UserRoleName;
+import com.bfwg.repository.AuthorityRepository;
 import com.bfwg.repository.UserRepository;
 import com.bfwg.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -30,6 +35,9 @@ public class UserController {
     private UserService userService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private AuthorityRepository authorityRepository;
+
 
     @RequestMapping( method = GET, value = "/user/{userId}" )
     @PreAuthorize("hasRole('ADMIN')")
@@ -48,6 +56,7 @@ public class UserController {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         User user = new User(userDto);
+        user.setAuthorities(authorityRepository.findAllById(1));
         userRepository.save(user);
         return new ResponseEntity<>(new RESTResponse.Success()
                 .setStatus(HttpStatus.OK.value())
@@ -63,6 +72,7 @@ public class UserController {
     @RequestMapping("/whoami")
     @PreAuthorize("hasRole('USER')")
     public User user(Principal user) {
+        System.out.println(userRepository.findByUsername(user.getName()).getId());
         return this.userService.findByUsername(user.getName());
     }
 }

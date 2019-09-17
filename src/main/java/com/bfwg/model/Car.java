@@ -3,6 +3,7 @@ package com.bfwg.model;
 import com.bfwg.dto.CarDto;
 
 import javax.persistence.*;
+import java.util.Set;
 import java.util.stream.Stream;
 
 @Entity
@@ -22,8 +23,10 @@ public class Car {
     private int seatingCapacity;
     private int driver;
     private int airConditioner;
+    private String image;
     private double price;
-
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "carId")
+    private Set<OrderCar> orderCars;
 
 
     public Car() {
@@ -36,6 +39,23 @@ public class Car {
       this.price = carDto.getPrice();
       this.seatingCapacity = carDto.getSeatingCapacity();
       this.size = carDto.getSize();
+      this.image = carDto.getImage();
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Set<OrderCar> getOrderCars() {
+        return orderCars;
+    }
+
+    public void setOrderCars(Set<OrderCar> orderCars) {
+        this.orderCars = orderCars;
     }
 
     public long getId() {

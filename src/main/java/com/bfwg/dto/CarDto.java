@@ -14,6 +14,7 @@ public class CarDto {
     private int airConditioner;
     private double price;
     private long model;
+    private String image;
 
     public CarDto() {
     }
@@ -26,10 +27,19 @@ public class CarDto {
         this.driver = car.getDriver();
         this.airConditioner = car.getAirConditioner();
         this.price = car.getPrice();
+        this.image = car.getImage();
         this.model = car.getModel().getId();
     }
 
     public CarDto(Optional<Car> car) {
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public long getId() {

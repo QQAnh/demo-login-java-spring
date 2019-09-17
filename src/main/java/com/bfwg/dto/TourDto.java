@@ -9,7 +9,7 @@ public class TourDto {
     private String food;
     private long tourType;
     private Double price;
-
+    private String image;
     public TourDto(Tour tour) {
         this.id = tour.getId();
         this.title = tour.getTitle();
@@ -17,6 +17,16 @@ public class TourDto {
         this.food = tour.getFood();
         this.price = tour.getPrice();
         this.tourType = tour.getTourType().getId();
+        this.image = tour.getImage();
+    }
+
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public long getId() {

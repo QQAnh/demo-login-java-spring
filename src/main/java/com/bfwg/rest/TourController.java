@@ -44,7 +44,7 @@ public class TourController {
                 .build(), HttpStatus.OK);
     }
     @RequestMapping(value = "/tour/create", method = RequestMethod.POST)
-    public ResponseEntity<Object> createCar(@Valid @RequestBody TourDto tourDto) {
+    public ResponseEntity<Object> createTour(@Valid @RequestBody TourDto tourDto) {
         Optional<TourType> tourType = tourTypeRepository.findById(tourDto.getTourType());
         if (!tourType.isPresent()){
             return new ResponseEntity<>(new RESTResponse.Success()
@@ -62,7 +62,7 @@ public class TourController {
                 .build(), HttpStatus.OK);
     }
     @RequestMapping(value = "/tour/getAll", method = RequestMethod.GET)
-    public ResponseEntity<Object> getAllCar(Pageable pageable) {
+    public ResponseEntity<Object> getAllTour(Pageable pageable) {
         return new ResponseEntity<>(new RESTResponse.Success()
                 .setStatus(HttpStatus.OK.value())
                 .setMessage("Success!")
@@ -107,6 +107,7 @@ public class TourController {
         }
 //        tour.get().setId(id);
         tour.get().setTitle(tourDto.getTitle());
+        tour.get().setImage(tourDto.getImage());
         tour.get().setPrice(tourDto.getPrice());
         tour.get().setArrangements(tourDto.getArrangements());
         tour.get().setFood(tourDto.getFood());

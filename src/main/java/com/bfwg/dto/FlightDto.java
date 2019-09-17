@@ -11,6 +11,7 @@ public class FlightDto {
     private String schedule;
     private String description;
     private long tour;
+    private String image;
 
     public FlightDto(Flight flight) {
         this.id = flight.getId();
@@ -20,6 +21,15 @@ public class FlightDto {
         this.schedule = flight.getSchedule();
         this.description = flight.getDescription();
         this.tour = flight.getTour().getId();
+        this.image = flight.getImage();
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public FlightDto() {

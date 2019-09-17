@@ -1,5 +1,6 @@
 package com.bfwg.config;
 
+import com.bfwg.mail.MailController;
 import com.bfwg.model.User;
 import com.bfwg.security.TokenHelper;
 import com.bfwg.security.auth.RestAuthenticationEntryPoint;
@@ -38,6 +39,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public MailController mailController() {
+        return new MailController();
     }
 
     @Autowired

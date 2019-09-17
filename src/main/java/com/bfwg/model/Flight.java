@@ -17,6 +17,7 @@ public class Flight {
     private String brand;
     private String schedule;
     private String description;
+    private String image;
     @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
     @JoinColumn(name = "tour_id", nullable = false)
     private Tour tour;
@@ -32,6 +33,15 @@ public class Flight {
         this.brand = flightDto.getBrand();
         this.schedule = flightDto.getSchedule();
         this.description = flightDto.getDescription();
+        this.image = flightDto.getImage();
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public long getId() {

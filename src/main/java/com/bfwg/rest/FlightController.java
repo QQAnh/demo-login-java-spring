@@ -114,6 +114,7 @@ public class FlightController {
         }
 //        flight.get().setId(id);
         flight.get().setName(flightDto.getName());
+        flight.get().setImage(flightDto.getImage());
         flight.get().setPrice(flightDto.getPrice());
         flight.get().setBrand(flightDto.getBrand());
         flight.get().setDescription(flightDto.getDescription());

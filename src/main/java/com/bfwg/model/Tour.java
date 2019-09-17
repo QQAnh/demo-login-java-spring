@@ -15,6 +15,7 @@ public class Tour {
     private String title;
     private String arrangements;
     private String food;
+    private String image;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
     @JoinColumn(name = "tourType", nullable = false)
@@ -23,6 +24,9 @@ public class Tour {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tour")
     private Set<Flight> flights;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tourId")
+    private Set<Hotel> hotels;
 
     public Tour() {
     }
@@ -33,6 +37,30 @@ public class Tour {
         this.arrangements = tourDto.getArrangements();
         this.food = tourDto.getFood();
         this.price = tourDto.getPrice();
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Set<Flight> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(Set<Flight> flights) {
+        this.flights = flights;
+    }
+
+    public Set<Hotel> getHotels() {
+        return hotels;
+    }
+
+    public void setHotels(Set<Hotel> hotels) {
+        this.hotels = hotels;
     }
 
     public long getId() {

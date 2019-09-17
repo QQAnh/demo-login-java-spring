@@ -1,7 +1,7 @@
 package com.bfwg.rest;
 
 import com.bfwg.dto.CarDto;
-import com.bfwg.exceptions.ResourceNotFoundException;
+import com.bfwg.mail.MailController;
 import com.bfwg.model.Car;
 import com.bfwg.model.ModelCar;
 import com.bfwg.repository.CarRepository;
@@ -13,8 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
+import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,8 @@ import java.util.stream.Collectors;
 @RequestMapping( value = "/api")
 public class CarController {
 
+    @Autowired
+    private MailController mailController;
 
     @Autowired
     private CarRepository carRepository;
@@ -46,7 +49,7 @@ public class CarController {
                 .setData(car.stream().map(x->new CarDto(x)).collect(Collectors.toList()))
                 .build(), HttpStatus.OK);
     }
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/car/create", method = RequestMethod.POST)
     public ResponseEntity<Object> createCar(@Valid @RequestBody CarDto carDto) {
         Optional<ModelCar> modelCar = modelCarRepository.findById(carDto.getModel());
@@ -65,7 +68,7 @@ public class CarController {
                 .setData(new CarDto(carRepository.save(car)))
                 .build(), HttpStatus.OK);
     }
-
+//    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "/car/getAll", method = RequestMethod.GET)
     public ResponseEntity<Object> getAllCar(Pageable pageable) {
         return new ResponseEntity<>(new RESTResponse.Success()
@@ -95,8 +98,8 @@ public class CarController {
                 .build(), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('USER')")
-    @RequestMapping(value = "/car/{id}", method = RequestMethod.PUT)
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/car/edit/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> editCar(@PathVariable Long id,@Valid @RequestBody CarDto carDto){
         Optional<ModelCar> modelCar = modelCarRepository.findById(carDto.getModel());
         if (!modelCar.isPresent()){
@@ -114,10 +117,10 @@ public class CarController {
                     .setData(null)
                     .build(), HttpStatus.NOT_FOUND);
         }
-//        car.get().setId(id);
         car.get().setName(carDto.getName());
         car.get().setPrice(carDto.getPrice());
         car.get().setSize(carDto.getSize());
+        car.get().setImage(carDto.getImage());
         car.get().setAirConditioner(carDto.getAirConditioner());
         car.get().setDriver(carDto.getDriver());
         car.get().setSeatingCapacity(carDto.getSeatingCapacity());
@@ -130,6 +133,30 @@ public class CarController {
                 .setData(new CarDto((car.get())))
                 .build(), HttpStatus.OK);
     }
+
+
+    @RequestMapping(value = "/car/getAllss", method = RequestMethod.GET)
+    public ResponseEntity<Object> getAll(Pageable pageable) {
+        System.out.println("Sending Email...");
+
+        try {
+            //sendEmail();
+            mailController.sendEmailWithAttachment("asdasdasd");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Done");
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Success!")
+                .setData(carRepository.findAll().stream().map(x -> new CarDto(x)).collect(Collectors.toList()))
+                .build(), HttpStatus.OK);
+    }
+
+
 
 //    @PreAuthorize("hasRole('USER')")
 //    @RequestMapping(value = "/car/model/{modelId}", method = RequestMethod.POST)
