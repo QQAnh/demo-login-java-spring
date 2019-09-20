@@ -7,6 +7,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
@@ -24,8 +27,8 @@ public class User implements UserDetails {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "username",unique = true)
+    @NotEmpty(message = "Please provide a name")
     private String username;
 
     @JsonIgnore
@@ -38,6 +41,7 @@ public class User implements UserDetails {
     @Column(name = "last_name")
     private String lastName;
 
+    @Email(message = "Please provide valid email address")
     @Column(name = "email",unique = true)
     private String email;
 

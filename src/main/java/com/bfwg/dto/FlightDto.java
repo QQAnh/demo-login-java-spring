@@ -1,6 +1,7 @@
 package com.bfwg.dto;
 
 import com.bfwg.model.Flight;
+import org.springframework.data.domain.Page;
 
 public class FlightDto {
     private long id;
@@ -11,6 +12,7 @@ public class FlightDto {
     private String schedule;
     private String description;
     private long tour;
+    private String tourName;
     private String image;
 
     public FlightDto(Flight flight) {
@@ -21,7 +23,19 @@ public class FlightDto {
         this.schedule = flight.getSchedule();
         this.description = flight.getDescription();
         this.tour = flight.getTour().getId();
+        this.tourName = flight.getTour().getTitle();
         this.image = flight.getImage();
+    }
+
+    public FlightDto(Page<Flight> flights) {
+    }
+
+    public String getTourName() {
+        return tourName;
+    }
+
+    public void setTourName(String tourName) {
+        this.tourName = tourName;
     }
 
     public String getImage() {

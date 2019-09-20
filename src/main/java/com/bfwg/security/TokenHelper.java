@@ -29,7 +29,9 @@ public class TokenHelper {
     public String SECRET;
 
 //    @Value("${jwt.expires_in}")
-    private int EXPIRES_IN=300;
+    private int EXPIRES_IN=99999999;
+//    private int EXPIRES_IN=999999;
+
 
 //    @Value("${jwt.mobile_expires_in}")
 //    private int MOBILE_EXPIRES_IN;

@@ -11,5 +11,7 @@ import java.util.Optional;
 public interface FlightRepository  extends JpaRepository<Flight, Long> {
     Page<Flight> findByTourId(long tour, Pageable pageable);
     Optional<Flight> findByIdAndTourId(Long id, Long tour);
+    Page<Flight> findByName(String name, Pageable pageable);
+
 
 }

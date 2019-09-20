@@ -127,4 +127,15 @@ public class FlightController {
                 .build(), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/flight/searchByName/{name}", method = RequestMethod.GET)
+    public ResponseEntity<Object> searchByName(@PathVariable String name,Pageable pageable) {
+        Page<Flight> flights = flightRepository.findByName(name, pageable);
+        FlightDto flightDto = new FlightDto(flights);
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Success!")
+                .setData(flightDto)
+                .build(), HttpStatus.OK);
+    }
+
 }

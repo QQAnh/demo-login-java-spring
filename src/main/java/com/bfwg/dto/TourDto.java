@@ -1,6 +1,12 @@
 package com.bfwg.dto;
 
+import com.bfwg.model.Flight;
+import com.bfwg.model.Hotel;
 import com.bfwg.model.Tour;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
+import java.util.Set;
 
 public class TourDto {
     private long id;
@@ -8,18 +14,52 @@ public class TourDto {
     private String arrangements;
     private String food;
     private long tourType;
+    private String tourTypeName;
+    private Set<Flight> flights;
+    private Set<Hotel> hotels;
     private Double price;
     private String image;
+    private String location;
     public TourDto(Tour tour) {
         this.id = tour.getId();
         this.title = tour.getTitle();
         this.arrangements = tour.getArrangements();
+        this.flights = tour.getFlights();
+        this.hotels = tour.getHotels();
         this.food = tour.getFood();
         this.price = tour.getPrice();
         this.tourType = tour.getTourType().getId();
+        this.tourTypeName = tour.getTourType().getName();
         this.image = tour.getImage();
+        this.location =tour.getLocation();
     }
 
+    public TourDto(Page<Tour> tours) {
+    }
+
+    public Set<Hotel> getHotels() {
+        return hotels;
+    }
+
+    public void setHotels(Set<Hotel> hotels) {
+        this.hotels = hotels;
+    }
+
+    public Set<Flight> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(Set<Flight> flights) {
+        this.flights = flights;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     public String getImage() {
         return image;
@@ -75,6 +115,14 @@ public class TourDto {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getTourTypeName() {
+        return tourTypeName;
+    }
+
+    public void setTourTypeName(String tourTypeName) {
+        this.tourTypeName = tourTypeName;
     }
 
     public TourDto() {

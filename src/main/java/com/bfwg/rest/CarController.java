@@ -6,6 +6,7 @@ import com.bfwg.model.Car;
 import com.bfwg.model.ModelCar;
 import com.bfwg.repository.CarRepository;
 import com.bfwg.repository.ModelCarRepository;
+import javafx.scene.control.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.IOException;
@@ -20,7 +22,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping( value = "/api")
+@RequestMapping(value = "/api")
 public class CarController {
 
     @Autowired
@@ -34,9 +36,9 @@ public class CarController {
 
     @GetMapping("/car/model/{modelId}")
     public ResponseEntity<Object> getAllCarByModelId(@PathVariable(value = "modelId") Long modelId,
-                                            Pageable pageable) {
+                                                     Pageable pageable) {
         Page<Car> car = carRepository.findByModelId(modelId, pageable);
-        if (!modelCarRepository.findById(modelId).isPresent()){
+        if (!modelCarRepository.findById(modelId).isPresent()) {
             return new ResponseEntity<>(new RESTResponse.Success()
                     .setStatus(HttpStatus.NOT_FOUND.value())
                     .setMessage("MODEL CAR NOT FOUND!")
@@ -46,14 +48,15 @@ public class CarController {
         return new ResponseEntity<>(new RESTResponse.Success()
                 .setStatus(HttpStatus.OK.value())
                 .setMessage("Success!")
-                .setData(car.stream().map(x->new CarDto(x)).collect(Collectors.toList()))
+                .setData(car.stream().map(x -> new CarDto(x)).collect(Collectors.toList()))
                 .build(), HttpStatus.OK);
     }
+
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/car/create", method = RequestMethod.POST)
     public ResponseEntity<Object> createCar(@Valid @RequestBody CarDto carDto) {
         Optional<ModelCar> modelCar = modelCarRepository.findById(carDto.getModel());
-        if (!modelCar.isPresent()){
+        if (!modelCar.isPresent()) {
             return new ResponseEntity<>(new RESTResponse.Success()
                     .setStatus(HttpStatus.NOT_FOUND.value())
                     .setMessage("MODEL CAR NOT FOUND!")
@@ -68,7 +71,8 @@ public class CarController {
                 .setData(new CarDto(carRepository.save(car)))
                 .build(), HttpStatus.OK);
     }
-//    @PreAuthorize("hasRole('USER')")
+
+    //    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "/car/getAll", method = RequestMethod.GET)
     public ResponseEntity<Object> getAllCar(Pageable pageable) {
         return new ResponseEntity<>(new RESTResponse.Success()
@@ -81,7 +85,7 @@ public class CarController {
     @RequestMapping(value = "/car/getOne/{id}", method = RequestMethod.GET)
     public ResponseEntity<Object> getOneCar(@PathVariable Long id) {
         Optional<Car> car = carRepository.findById(id);
-        if (!car.isPresent()){
+        if (!car.isPresent()) {
             return new ResponseEntity<>(new RESTResponse.Success()
                     .setStatus(HttpStatus.NOT_FOUND.value())
                     .setMessage("NOT FOUND!")
@@ -100,9 +104,9 @@ public class CarController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/car/edit/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> editCar(@PathVariable Long id,@Valid @RequestBody CarDto carDto){
+    public ResponseEntity<Object> editCar(@PathVariable Long id, @Valid @RequestBody CarDto carDto) {
         Optional<ModelCar> modelCar = modelCarRepository.findById(carDto.getModel());
-        if (!modelCar.isPresent()){
+        if (!modelCar.isPresent()) {
             return new ResponseEntity<>(new RESTResponse.Success()
                     .setStatus(HttpStatus.NOT_FOUND.value())
                     .setMessage("MODEL CAR NOT FOUND!")
@@ -110,7 +114,7 @@ public class CarController {
                     .build(), HttpStatus.NOT_FOUND);
         }
         Optional<Car> car = carRepository.findById(id);
-        if (!car.isPresent()){
+        if (!car.isPresent()) {
             return new ResponseEntity<>(new RESTResponse.Success()
                     .setStatus(HttpStatus.NOT_FOUND.value())
                     .setMessage("CAR NOT FOUND!")
@@ -156,6 +160,20 @@ public class CarController {
                 .build(), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/car/searchByName/{name}", method = RequestMethod.GET)
+    public ResponseEntity<Object> searchByName(@PathVariable String name, Pageable pageable) {
+        Page<Car> car = carRepository.findByName(name, pageable);
+        CarDto carDto = new CarDto(car);
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Success!")
+                .setData(carDto)
+                .setPagination(new RESTPagination(pageable.getPageNumber(),
+                        pageable.getPageSize(),
+                        car.getTotalPages(),
+                        car.getNumberOfElements()))
+                .build(), HttpStatus.OK);
+    }
 
 
 //    @PreAuthorize("hasRole('USER')")

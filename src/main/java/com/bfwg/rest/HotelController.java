@@ -1,15 +1,14 @@
 package com.bfwg.rest;
 
 import com.bfwg.dto.CarDto;
+import com.bfwg.dto.FlightDto;
 import com.bfwg.dto.HotelDto;
-import com.bfwg.model.Car;
-import com.bfwg.model.Hotel;
-import com.bfwg.model.ModelCar;
-import com.bfwg.model.Tour;
+import com.bfwg.model.*;
 import com.bfwg.repository.CarRepository;
 import com.bfwg.repository.HotelRepository;
 import com.bfwg.repository.TourRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -102,6 +101,18 @@ public class HotelController {
                 .setStatus(HttpStatus.OK.value())
                 .setMessage("UPDATE SUCCESS!")
                 .setData(new HotelDto((hotel.get())))
+                .build(), HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value = "/hotel/searchByName/{name}", method = RequestMethod.GET)
+    public ResponseEntity<Object> searchByName(@PathVariable String name,Pageable pageable) {
+        Page<Hotel> hotels = hotelRepository.findByName(name, pageable);
+        HotelDto hotelDto = new HotelDto(hotels);
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Success!")
+                .setData(hotelDto)
                 .build(), HttpStatus.OK);
     }
 

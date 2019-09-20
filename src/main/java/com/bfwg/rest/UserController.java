@@ -64,6 +64,16 @@ public class UserController {
                 .setData(" (-_-) ")
                 .build(), HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public ResponseEntity<Object> getUser(Principal user) {
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("SUCCESS!")
+                .setData(userRepository.findByUsername(user.getName()))
+                .build(), HttpStatus.OK);
+    }
+
     /*
      *  We are not using userService.findByUsername here(we could),
      *  so it is good that we are making sure that the user has role "ROLE_USER"
@@ -72,7 +82,6 @@ public class UserController {
     @RequestMapping("/whoami")
     @PreAuthorize("hasRole('USER')")
     public User user(Principal user) {
-        System.out.println(userRepository.findByUsername(user.getName()).getId());
         return this.userService.findByUsername(user.getName());
     }
 }

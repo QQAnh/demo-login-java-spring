@@ -1,6 +1,7 @@
 package com.bfwg.dto;
 
 import com.bfwg.model.Hotel;
+import org.springframework.data.domain.Page;
 
 public class HotelDto {
     private long id;
@@ -9,6 +10,7 @@ public class HotelDto {
     private double price;
     private String service;
     private long tourId;
+    private String tourName;
     private String image;
 
 
@@ -19,10 +21,22 @@ public class HotelDto {
         this.price = hotel.getPrice();
         this.service = hotel.getService();
         this.tourId = hotel.getTourId().getId();
+        this.tourName= hotel.getTourId().getTitle();
         this.image = hotel.getImage();
     }
 
     public HotelDto() {
+    }
+
+    public HotelDto(Page<Hotel> hotels) {
+    }
+
+    public String getTourName() {
+        return tourName;
+    }
+
+    public void setTourName(String tourName) {
+        this.tourName = tourName;
     }
 
     public String getImage() {

@@ -3,11 +3,13 @@ package com.bfwg.rest;
 import com.bfwg.common.DeviceProvider;
 import com.bfwg.model.User;
 import com.bfwg.model.UserTokenState;
+import com.bfwg.repository.UserRepository;
 import com.bfwg.security.TokenHelper;
 import com.bfwg.security.auth.JwtAuthenticationRequest;
 import com.bfwg.service.impl.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,6 +41,8 @@ public class AuthenticationController {
 
     @Autowired
     TokenHelper tokenHelper;
+    @Autowired
+    private UserRepository userRepository;
 
     @Lazy
     @Autowired
@@ -50,18 +55,32 @@ public class AuthenticationController {
     private DeviceProvider deviceProvider;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(
+    public ResponseEntity<Object> createAuthenticationToken(
             @RequestBody JwtAuthenticationRequest authenticationRequest,
             HttpServletResponse response
     ) throws AuthenticationException, IOException {
 
         // Perform the security
+        User byUsername = userRepository.findByUsername(authenticationRequest.getUsername());
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        if (bCryptPasswordEncoder.matches(authenticationRequest.getPassword(),byUsername.getPassword()) == false){
+
+            return new ResponseEntity<>(new RESTResponse.Success()
+                    .setStatus(HttpStatus.NOT_FOUND.value())
+                    .setMessage("Invalid username or password!")
+                    .setData(null)
+                    .build(), HttpStatus.NOT_FOUND);
+//            return ResponseEntity
+//                    .status(HttpStatus.FORBIDDEN)
+//                    .body("{}");
+        }
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         authenticationRequest.getUsername(),
                         authenticationRequest.getPassword()
                 )
         );
+
 
         // Inject into security context
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -72,7 +91,12 @@ public class AuthenticationController {
         String jws = tokenHelper.generateToken(user.getUsername());
         int expiresIn = tokenHelper.getExpiredIn();
         // Return the token
-        return ResponseEntity.ok(new UserTokenState(userId,jws, expiresIn));
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("SUCCESS !")
+                .setData(new UserTokenState(userId,jws,expiresIn))
+                .build(), HttpStatus.OK);
+//        return ResponseEntity.ok(new UserTokenState(userId,jws, expiresIn));
     }
 
     @RequestMapping(value = "/refresh", method = RequestMethod.POST)

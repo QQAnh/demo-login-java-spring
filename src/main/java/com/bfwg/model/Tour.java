@@ -1,9 +1,12 @@
 package com.bfwg.model;
 
 
+import com.bfwg.dto.FlightDto;
 import com.bfwg.dto.TourDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,6 +19,7 @@ public class Tour {
     private String arrangements;
     private String food;
     private String image;
+    private String location;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
     @JoinColumn(name = "tourType", nullable = false)
@@ -23,6 +27,7 @@ public class Tour {
     private Double price;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tour")
+    @JsonIgnore
     private Set<Flight> flights;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tourId")
@@ -37,6 +42,15 @@ public class Tour {
         this.arrangements = tourDto.getArrangements();
         this.food = tourDto.getFood();
         this.price = tourDto.getPrice();
+        this.location =tourDto.getLocation();
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getImage() {

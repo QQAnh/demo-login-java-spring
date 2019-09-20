@@ -1,11 +1,9 @@
 package com.bfwg.rest;
 
 import com.bfwg.dto.CarDto;
+import com.bfwg.dto.HotelDto;
 import com.bfwg.dto.TourDto;
-import com.bfwg.model.Car;
-import com.bfwg.model.ModelCar;
-import com.bfwg.model.Tour;
-import com.bfwg.model.TourType;
+import com.bfwg.model.*;
 import com.bfwg.repository.TourRepository;
 import com.bfwg.repository.TourTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -27,7 +26,7 @@ public class TourController {
     @Autowired
     private TourTypeRepository tourTypeRepository;
     @GetMapping("/tour/tourType/{tourTypeId}")
-    public ResponseEntity<Object> getAllCarByModelId(@PathVariable(value = "tourTypeId") Long tourType,
+    public ResponseEntity<Object> getAllTourByTourType(@PathVariable(value = "tourTypeId") Long tourType,
                                                      Pageable pageable) {
         if (!tourTypeRepository.findById(tourType).isPresent()){
             return new ResponseEntity<>(new RESTResponse.Success()
@@ -41,6 +40,10 @@ public class TourController {
                 .setStatus(HttpStatus.OK.value())
                 .setMessage("Success!")
                 .setData(tours.stream().map(x->new TourDto(x)).collect(Collectors.toList()))
+                .setPagination(new RESTPagination(pageable.getPageNumber(),
+                        pageable.getPageSize(),
+                        tours.getTotalPages(),
+                        tours.getNumberOfElements()))
                 .build(), HttpStatus.OK);
     }
     @RequestMapping(value = "/tour/create", method = RequestMethod.POST)
@@ -49,7 +52,7 @@ public class TourController {
         if (!tourType.isPresent()){
             return new ResponseEntity<>(new RESTResponse.Success()
                     .setStatus(HttpStatus.NOT_FOUND.value())
-                    .setMessage("MODEL CAR NOT FOUND!")
+                    .setMessage("TOUR TYPE NOT FOUND!")
                     .setData(null)
                     .build(), HttpStatus.NOT_FOUND);
         }
@@ -63,14 +66,20 @@ public class TourController {
     }
     @RequestMapping(value = "/tour/getAll", method = RequestMethod.GET)
     public ResponseEntity<Object> getAllTour(Pageable pageable) {
+
+        List<Tour> tours = tourRepository.findAll();
         return new ResponseEntity<>(new RESTResponse.Success()
                 .setStatus(HttpStatus.OK.value())
                 .setMessage("Success!")
                 .setData(tourRepository.findAll().stream().map(x -> new TourDto(x)).collect(Collectors.toList()))
+                .setPagination(new RESTPagination(pageable.getPageNumber(),
+                        pageable.getPageSize(),
+                        tours.size(),
+                        tours.size()))
                 .build(), HttpStatus.OK);
     }
     @RequestMapping(value = "/tour/getOne/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Object> getOneCar(@PathVariable Long id) {
+    public ResponseEntity<Object> getOneTour(@PathVariable Long id) {
         Optional<Tour> tour = tourRepository.findById(id);
         if (!tour.isPresent()){
             return new ResponseEntity<>(new RESTResponse.Success()
@@ -88,12 +97,12 @@ public class TourController {
     }
 
     @RequestMapping(value = "/tour/edit/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> get(@PathVariable Long id,@Valid @RequestBody TourDto tourDto){
+    public ResponseEntity<Object> editTour(@PathVariable Long id,@Valid @RequestBody TourDto tourDto){
         Optional<TourType> tourType = tourTypeRepository.findById(tourDto.getTourType());
         if (!tourType.isPresent()){
             return new ResponseEntity<>(new RESTResponse.Success()
                     .setStatus(HttpStatus.NOT_FOUND.value())
-                    .setMessage("MODEL CAR NOT FOUND!")
+                    .setMessage("TOUR TYPE NOT FOUND!")
                     .setData(null)
                     .build(), HttpStatus.NOT_FOUND);
         }
@@ -116,6 +125,69 @@ public class TourController {
                 .setStatus(HttpStatus.OK.value())
                 .setMessage("UPDATE SUCCESS!")
                 .setData(new TourDto(tourRepository.save(tour.get())))
+                .build(), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/tour/searchByTitle/{title}", method = RequestMethod.GET)
+    public ResponseEntity<Object> searchByName(@PathVariable String title,Pageable pageable) {
+        List<Tour> tours = tourRepository.findByTitle(title);
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Success!")
+                .setData(tours.stream().map(x->new TourDto(x)).collect(Collectors.toList()))
+                .setPagination(new RESTPagination(pageable.getPageNumber(),
+                        pageable.getPageSize(),
+                        tours.size(),
+                        tours.size()))
+                .build(), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/tour/searchByPrice/{price}", method = RequestMethod.GET)
+    public ResponseEntity<Object> searchByPrice(@PathVariable Double price,Pageable pageable) {
+        List<Tour> tours = tourRepository.findByPrice(price);
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Success!")
+                .setData(tours.stream().map(x->new TourDto(x)).collect(Collectors.toList()))
+                .setPagination(new RESTPagination(pageable.getPageNumber(),
+                        pageable.getPageSize(),
+                        tours.size(),
+                        tours.size()))
+                .build(), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/tour/searchByLocation/{location}", method = RequestMethod.GET)
+    public ResponseEntity<Object> searchByLocation(@PathVariable String location,Pageable pageable) {
+        List<Tour> tours = tourRepository.findByLocation(location);
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Success!")
+                .setData(tours.stream().map(x->new TourDto(x)).collect(Collectors.toList()))
+                .setPagination(new RESTPagination(pageable.getPageNumber(),
+                        pageable.getPageSize(),
+                        tours.size(),
+                        tours.size()))
+                .build(), HttpStatus.OK);
+    }
+    @RequestMapping(value = "/tour/searchByTourTypeName/{name}", method = RequestMethod.GET)
+    public ResponseEntity<Object> searchByTourTypeName(@PathVariable String name,Pageable pageable) {
+        if (tourTypeRepository.findByName(name).isEmpty()){
+            return new ResponseEntity<>(new RESTResponse.Success()
+                    .setStatus(HttpStatus.NOT_FOUND.value())
+                    .setMessage("TOUR TYPE NOT FOUND!")
+                    .setData(null)
+                    .build(), HttpStatus.NOT_FOUND);
+        }
+
+        List<Tour> tours = tourRepository.findByTourTypeName(name);
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Success!")
+                .setData(tours.stream().map(x->new TourDto(x)).collect(Collectors.toList()))
+                .setPagination(new RESTPagination(pageable.getPageNumber(),
+                        pageable.getPageSize(),
+                        tours.size(),
+                        tours.size()))
                 .build(), HttpStatus.OK);
     }
 

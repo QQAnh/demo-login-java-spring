@@ -2,6 +2,7 @@ package com.bfwg.dto;
 
 import com.bfwg.model.Car;
 import com.bfwg.model.ModelCar;
+import org.springframework.data.domain.Page;
 
 import java.util.Optional;
 
@@ -32,6 +33,9 @@ public class CarDto {
     }
 
     public CarDto(Optional<Car> car) {
+    }
+
+    public CarDto(Page<Car> car) {
     }
 
     public String getImage() {

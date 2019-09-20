@@ -2,6 +2,7 @@ package com.bfwg.model;
 
 
 import com.bfwg.dto.FlightDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -19,6 +20,7 @@ public class Flight {
     private String description;
     private String image;
     @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+    @JsonIgnore
     @JoinColumn(name = "tour_id", nullable = false)
     private Tour tour;
 
