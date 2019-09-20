@@ -121,6 +121,7 @@ public class TourController {
         tour.get().setArrangements(tourDto.getArrangements());
         tour.get().setFood(tourDto.getFood());
         tour.get().setTourType(tourType.get());
+        tour.get().setDuration(tourDto.getDuration());
         return new ResponseEntity<>(new RESTResponse.Success()
                 .setStatus(HttpStatus.OK.value())
                 .setMessage("UPDATE SUCCESS!")

@@ -20,6 +20,7 @@ public class Tour {
     private String food;
     private String image;
     private String location;
+    private String duration;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
     @JoinColumn(name = "tourType", nullable = false)
@@ -43,6 +44,15 @@ public class Tour {
         this.food = tourDto.getFood();
         this.price = tourDto.getPrice();
         this.location =tourDto.getLocation();
+        this.duration = tourDto.getDuration();
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 
     public String getLocation() {

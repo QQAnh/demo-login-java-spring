@@ -1,48 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7df77afd-21d5-453a-88fe-fa28b90294a8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/dto/CarDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/dto/CarDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/dto/FlightDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/dto/FlightDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/dto/HotelDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/dto/HotelDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/dto/TourDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/dto/TourDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/model/Flight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/model/Flight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/model/Tour.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/model/Tour.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/repository/CarRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/repository/CarRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/repository/FlightRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/repository/FlightRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/repository/HotelRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/repository/HotelRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/repository/TourRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/repository/TourRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/repository/TourTypeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/repository/TourTypeRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/rest/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/rest/AuthenticationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/rest/CarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/rest/CarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/rest/FlightController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/rest/FlightController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/rest/HotelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/rest/HotelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/rest/TourController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/rest/TourController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/rest/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/rest/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bfwg/security/TokenHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bfwg/security/TokenHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/dto/CarDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/dto/CarDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/dto/FlightDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/dto/FlightDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/dto/HotelDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/dto/HotelDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/dto/TourDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/dto/TourDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/model/Flight.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/model/Flight.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/model/Hotel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/model/Hotel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/model/Tour.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/model/Tour.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/model/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/repository/CarRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/repository/CarRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/repository/FlightRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/repository/FlightRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/repository/HotelRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/repository/HotelRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/repository/TourRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/repository/TourRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/rest/AuthenticationController$PasswordChanger.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/rest/AuthenticationController$PasswordChanger.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/rest/AuthenticationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/rest/AuthenticationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/rest/CarController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/rest/CarController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/rest/FlightController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/rest/FlightController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/rest/HotelController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/rest/HotelController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/rest/TourController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/rest/TourController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/rest/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/rest/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bfwg/security/TokenHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bfwg/security/TokenHelper.class" afterDir="false" />
-    </list>
+    <list default="true" id="7df77afd-21d5-453a-88fe-fa28b90294a8" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -440,16 +399,15 @@
       <workItem from="1568341063426" duration="26646000" />
       <workItem from="1568700745655" duration="25302000" />
       <workItem from="1568822674442" duration="724000" />
-      <workItem from="1568943329407" duration="2914000" />
+      <workItem from="1568943329407" duration="3168000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77267000" />
+    <option name="totallyTimeSpent" value="77521000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="777" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27382874" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -462,14 +420,14 @@
       <window_info id="Web" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3138686" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3138686" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Application Servers" order="7" />
       <window_info anchor="bottom" id="Spring" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.329927" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.329927" />
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="12" weight="0.329927" />

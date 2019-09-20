@@ -20,6 +20,7 @@ public class TourDto {
     private Double price;
     private String image;
     private String location;
+    private String duration;
     public TourDto(Tour tour) {
         this.id = tour.getId();
         this.title = tour.getTitle();
@@ -32,6 +33,8 @@ public class TourDto {
         this.tourTypeName = tour.getTourType().getName();
         this.image = tour.getImage();
         this.location =tour.getLocation();
+        this.duration = tour.getDuration();
+
     }
 
     public TourDto(Page<Tour> tours) {
@@ -43,6 +46,14 @@ public class TourDto {
 
     public void setHotels(Set<Hotel> hotels) {
         this.hotels = hotels;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 
     public Set<Flight> getFlights() {
