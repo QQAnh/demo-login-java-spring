@@ -8,6 +8,7 @@ import com.bfwg.repository.TourRepository;
 import com.bfwg.repository.TourTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,8 @@ public class TourController {
     private TourTypeRepository tourTypeRepository;
     @GetMapping("/tour/tourType/{tourTypeId}")
     public ResponseEntity<Object> getAllTourByTourType(@PathVariable(value = "tourTypeId") Long tourType,
-                                                     Pageable pageable) {
+                                                       @RequestParam(defaultValue = "0") String page,
+                                                       @RequestParam(defaultValue = "5") String limit) {
         if (!tourTypeRepository.findById(tourType).isPresent()){
             return new ResponseEntity<>(new RESTResponse.Success()
                     .setStatus(HttpStatus.NOT_FOUND.value())
@@ -35,13 +37,13 @@ public class TourController {
                     .setData(null)
                     .build(), HttpStatus.NOT_FOUND);
         }
-        Page<Tour> tours = tourRepository.findByTourTypeId(tourType, pageable);
+        Page<Tour> tours = tourRepository.findByTourTypeId(tourType, PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit)));
         return new ResponseEntity<>(new RESTResponse.Success()
                 .setStatus(HttpStatus.OK.value())
                 .setMessage("Success!")
                 .setData(tours.stream().map(x->new TourDto(x)).collect(Collectors.toList()))
-                .setPagination(new RESTPagination(pageable.getPageNumber(),
-                        pageable.getPageSize(),
+                .setPagination(new RESTPagination(Integer.parseInt(page),
+                        Integer.parseInt(limit),
                         tours.getTotalPages(),
                         tours.getNumberOfElements()))
                 .build(), HttpStatus.OK);
@@ -65,15 +67,17 @@ public class TourController {
                 .build(), HttpStatus.OK);
     }
     @RequestMapping(value = "/tour/getAll", method = RequestMethod.GET)
-    public ResponseEntity<Object> getAllTour(Pageable pageable) {
+    public ResponseEntity<Object> getAllTour(
+            @RequestParam(defaultValue = "0") String page,
+            @RequestParam(defaultValue = "5") String limit) {
 
         List<Tour> tours = tourRepository.findAll();
         return new ResponseEntity<>(new RESTResponse.Success()
                 .setStatus(HttpStatus.OK.value())
                 .setMessage("Success!")
-                .setData(tourRepository.findAll().stream().map(x -> new TourDto(x)).collect(Collectors.toList()))
-                .setPagination(new RESTPagination(pageable.getPageNumber(),
-                        pageable.getPageSize(),
+                .setData(tourRepository.findAll(PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit))).stream().map(x -> new TourDto(x)).collect(Collectors.toList()))
+                .setPagination(new RESTPagination(Integer.parseInt(page),
+                        Integer.parseInt(limit),
                         tours.size(),
                         tours.size()))
                 .build(), HttpStatus.OK);
@@ -130,48 +134,56 @@ public class TourController {
     }
 
     @RequestMapping(value = "/tour/searchByTitle/{title}", method = RequestMethod.GET)
-    public ResponseEntity<Object> searchByName(@PathVariable String title,Pageable pageable) {
-        List<Tour> tours = tourRepository.findByTitle(title);
+    public ResponseEntity<Object> searchByName(@PathVariable String title,
+                                               @RequestParam(defaultValue = "0") String page,
+                                               @RequestParam(defaultValue = "5") String limit) {
+        Page<Tour> tours = tourRepository.findByTitle(title,PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit)));
         return new ResponseEntity<>(new RESTResponse.Success()
                 .setStatus(HttpStatus.OK.value())
                 .setMessage("Success!")
                 .setData(tours.stream().map(x->new TourDto(x)).collect(Collectors.toList()))
-                .setPagination(new RESTPagination(pageable.getPageNumber(),
-                        pageable.getPageSize(),
-                        tours.size(),
-                        tours.size()))
+                .setPagination(new RESTPagination(Integer.parseInt(page),
+                        Integer.parseInt(limit),
+                        tours.getTotalPages(),
+                        tours.getTotalElements()))
                 .build(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/tour/searchByPrice/{price}", method = RequestMethod.GET)
-    public ResponseEntity<Object> searchByPrice(@PathVariable Double price,Pageable pageable) {
-        List<Tour> tours = tourRepository.findByPrice(price);
+    public ResponseEntity<Object> searchByPrice(@PathVariable Double price,
+                                                @RequestParam(defaultValue = "0") String page,
+                                                @RequestParam(defaultValue = "5") String limit) {
+        Page<Tour> tours = tourRepository.findByPrice(price,PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit)));
         return new ResponseEntity<>(new RESTResponse.Success()
                 .setStatus(HttpStatus.OK.value())
                 .setMessage("Success!")
                 .setData(tours.stream().map(x->new TourDto(x)).collect(Collectors.toList()))
-                .setPagination(new RESTPagination(pageable.getPageNumber(),
-                        pageable.getPageSize(),
-                        tours.size(),
-                        tours.size()))
+                .setPagination(new RESTPagination(Integer.parseInt(page),
+                        Integer.parseInt(limit),
+                        tours.getTotalPages(),
+                        tours.getTotalElements()))
                 .build(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/tour/searchByLocation/{location}", method = RequestMethod.GET)
-    public ResponseEntity<Object> searchByLocation(@PathVariable String location,Pageable pageable) {
-        List<Tour> tours = tourRepository.findByLocation(location);
+    public ResponseEntity<Object> searchByLocation(@PathVariable String location,
+                                                   @RequestParam(defaultValue = "0") String page,
+                                                   @RequestParam(defaultValue = "5") String limit) {
+        Page<Tour> tours = tourRepository.findByLocation(location,PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit)));
         return new ResponseEntity<>(new RESTResponse.Success()
                 .setStatus(HttpStatus.OK.value())
                 .setMessage("Success!")
                 .setData(tours.stream().map(x->new TourDto(x)).collect(Collectors.toList()))
-                .setPagination(new RESTPagination(pageable.getPageNumber(),
-                        pageable.getPageSize(),
-                        tours.size(),
-                        tours.size()))
+                .setPagination(new RESTPagination(Integer.parseInt(page),
+                        Integer.parseInt(limit),
+                        tours.getTotalPages(),
+                        tours.getTotalElements()))
                 .build(), HttpStatus.OK);
     }
     @RequestMapping(value = "/tour/searchByTourTypeName/{name}", method = RequestMethod.GET)
-    public ResponseEntity<Object> searchByTourTypeName(@PathVariable String name,Pageable pageable) {
+    public ResponseEntity<Object> searchByTourTypeName(@PathVariable(value = "name") String name,
+                                                       @RequestParam(defaultValue = "0") String page,
+                                                       @RequestParam(defaultValue = "5") String limit) {
         if (tourTypeRepository.findByName(name).isEmpty()){
             return new ResponseEntity<>(new RESTResponse.Success()
                     .setStatus(HttpStatus.NOT_FOUND.value())
@@ -180,15 +192,16 @@ public class TourController {
                     .build(), HttpStatus.NOT_FOUND);
         }
 
-        List<Tour> tours = tourRepository.findByTourTypeName(name);
+
+        Page<Tour> tours = tourRepository.findByTourTypeName(name,PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit)));
         return new ResponseEntity<>(new RESTResponse.Success()
                 .setStatus(HttpStatus.OK.value())
                 .setMessage("Success!")
                 .setData(tours.stream().map(x->new TourDto(x)).collect(Collectors.toList()))
-                .setPagination(new RESTPagination(pageable.getPageNumber(),
-                        pageable.getPageSize(),
-                        tours.size(),
-                        tours.size()))
+                .setPagination(new RESTPagination(Integer.parseInt(page),
+                        Integer.parseInt(limit),
+                        tours.getTotalPages(),
+                        tours.getTotalElements()))
                 .build(), HttpStatus.OK);
     }
 

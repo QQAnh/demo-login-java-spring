@@ -12,10 +12,10 @@ import java.util.Optional;
 
 public interface TourRepository extends JpaRepository<Tour, Long> {
     Page<Tour> findByTourTypeId(long tourType, Pageable pageable);
-    List<Tour> findByTitle(String title);
-    List<Tour> findByPrice(Double price);
-    List<Tour> findByLocation(String location);
-    List<Tour> findByTourTypeName(String tourTypeName);
+    Page<Tour> findByTitle(String title,Pageable pageable);
+    Page<Tour> findByPrice(Double price,Pageable pageable);
+    Page<Tour> findByLocation(String location,Pageable pageable);
+    Page<Tour> findByTourTypeName(String tourTypeName, Pageable pageable);
 
 
     Optional<Tour> findByIdAndTourType(Long id, Long tourType);

@@ -45,6 +45,7 @@ public class Tour {
         this.price = tourDto.getPrice();
         this.location =tourDto.getLocation();
         this.duration = tourDto.getDuration();
+        this.image =tourDto.getImage();
     }
 
     public String getDuration() {
