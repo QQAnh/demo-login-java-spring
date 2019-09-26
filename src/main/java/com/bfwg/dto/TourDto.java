@@ -3,11 +3,13 @@ package com.bfwg.dto;
 import com.bfwg.model.Flight;
 import com.bfwg.model.Hotel;
 import com.bfwg.model.Tour;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Set;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TourDto {
     private long id;
     private String title;
@@ -35,6 +37,12 @@ public class TourDto {
         this.location =tour.getLocation();
         this.duration = tour.getDuration();
 
+    }
+
+    public TourDto(long id, String title,long tourType) {
+        this.id = id;
+        this.title = title;
+        this.tourType = tourType;
     }
 
     public TourDto(Page<Tour> tours) {

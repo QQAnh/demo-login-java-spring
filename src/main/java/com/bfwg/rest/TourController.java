@@ -204,6 +204,33 @@ public class TourController {
                         tours.getTotalElements()))
                 .build(), HttpStatus.OK);
     }
+    @RequestMapping(value = "/tour/search", method = RequestMethod.GET)
+    public ResponseEntity<Object> search(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String location,
+            @RequestParam(defaultValue = "0") String priceMin,
+            @RequestParam(defaultValue = "10000000000000") String priceMax) {
+
+        List<Tour> tours = tourRepository.findAllByTitleAndLocationAndPriceBetween(title,location,Double.valueOf(priceMin),Double.valueOf(priceMax));
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Success!")
+                .setData(tours.stream().map(x -> new TourDto(x)).collect(Collectors.toList()))
+
+                .build(), HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value = "/tour/getAll-test", method = RequestMethod.GET)
+    public ResponseEntity<Object> getAllTourTest() {
+
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Success!")
+                .setData(tourRepository.findAll().stream().map(x -> new TourDto(x.getId(),x.getTitle(),x.getTourType().getId())).collect(Collectors.toList()))
+                .build(), HttpStatus.OK);
+    }
+
 
 
 }

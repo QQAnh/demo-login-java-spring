@@ -16,6 +16,8 @@ public interface TourRepository extends JpaRepository<Tour, Long> {
     Page<Tour> findByPrice(Double price,Pageable pageable);
     Page<Tour> findByLocation(String location,Pageable pageable);
     Page<Tour> findByTourTypeName(String tourTypeName, Pageable pageable);
+    List<Tour> findAllByTitleAndLocationAndPriceBetween (String title,String location,double priceMin,double priceMax);
+    List<Tour> findAllByTitleOrLocationOrPriceBetween (String title ,String location,double priceMin,double priceMax);
 
 
     Optional<Tour> findByIdAndTourType(Long id, Long tourType);

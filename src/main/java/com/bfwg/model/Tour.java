@@ -4,12 +4,14 @@ package com.bfwg.model;
 import com.bfwg.dto.FlightDto;
 import com.bfwg.dto.TourDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Table(name = "tours")
 public class Tour {
     @Id
