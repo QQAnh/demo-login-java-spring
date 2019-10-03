@@ -62,6 +62,8 @@ public class User implements UserDetails {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userId")
     private Set<OrderCar> orderCars;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userId")
+    private Set<OrderTour> orderTours;
 
     public User() {
     }
@@ -73,6 +75,22 @@ public class User implements UserDetails {
         this.lastName = userDto.getLastName();
         this.password = userDto.getPassword();
         this.phoneNumber = userDto.getPhoneNumber();
+    }
+
+    public Set<OrderCar> getOrderCars() {
+        return orderCars;
+    }
+
+    public void setOrderCars(Set<OrderCar> orderCars) {
+        this.orderCars = orderCars;
+    }
+
+    public Set<OrderTour> getOrderTours() {
+        return orderTours;
+    }
+
+    public void setOrderTours(Set<OrderTour> orderTours) {
+        this.orderTours = orderTours;
     }
 
     public Long getId() {

@@ -2,6 +2,7 @@ package com.bfwg.model;
 
 
 import com.bfwg.dto.HotelDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -18,6 +19,7 @@ public class Hotel {
     private String image;
     @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
     @JoinColumn(name = "tour_id", nullable = false)
+    @JsonIgnore
     private Tour tourId;
 
     public Hotel() {

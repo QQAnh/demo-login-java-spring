@@ -34,7 +34,12 @@ public class Tour {
     private Set<Flight> flights;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tourId")
+    @JsonIgnore
     private Set<Hotel> hotels;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tourId")
+    @JsonIgnore
+    private Set<OrderTour> orderTours;
 
     public Tour() {
     }
@@ -49,6 +54,14 @@ public class Tour {
         this.duration = tourDto.getDuration();
         this.image =tourDto.getImage();
     }
+
+//    public Set<OrderTour> getOrderTours() {
+//        return orderTours;
+//    }
+//
+//    public void setOrderTours(Set<OrderTour> orderTours) {
+//        this.orderTours = orderTours;
+//    }
 
     public String getDuration() {
         return duration;

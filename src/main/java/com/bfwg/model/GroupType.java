@@ -3,6 +3,7 @@ package com.bfwg.model;
 import com.bfwg.dto.GroupTypeDto;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "group_type")
@@ -11,6 +12,8 @@ public class GroupType {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "orderTour")
+//    private Set<OrderTour> orderTours;
 
     public GroupType(GroupTypeDto groupTypeDto) {
         this.id = groupTypeDto.getId();
