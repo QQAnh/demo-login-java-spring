@@ -202,13 +202,23 @@ public class CarController {
 //        }).orElseThrow(() -> new ResourceNotFoundException("car " , carId));
 //
 //    }
-//    @PreAuthorize("hasRole('USER')")
-//    @RequestMapping(value = "/car/{carId}/comments/{modelId}", method = RequestMethod.DELETE)
-//    public ResponseEntity<?> deleteCar(@PathVariable (value = "carId") Long carId,
-//                                           @PathVariable (value = "modelId") Long modelId) {
-//        return carRepository.findByIdAndModelId(carId, modelId).map(car -> {
-//            carRepository.delete(car);
-//            return ResponseEntity.ok().build();
-//        }).orElseThrow(() -> new ResourceNotFoundException("Comment not found with id " , carId));
-//    }
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/car/{carId}/comments/{modelId}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteCar(@PathVariable (value = "carId") Long carId,
+                                           @PathVariable (value = "modelId") Long modelId) {
+        Optional<Car> car = carRepository.findById(carId);
+        if (!car.isPresent()){
+            return new ResponseEntity<>(new RESTResponse.Success()
+                    .setStatus(HttpStatus.NOT_FOUND.value())
+                    .setMessage("CAR NOT FOUND!")
+                    .setData(null)
+                    .build(), HttpStatus.NOT_FOUND);
+        }
+        carRepository.delete(car.get());
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Success!")
+                .setData(null)
+                .build(), HttpStatus.OK);
+    }
 }

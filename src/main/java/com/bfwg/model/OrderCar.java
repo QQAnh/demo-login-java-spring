@@ -9,7 +9,7 @@ import java.util.Date;
 @Table(name = "order_car")
 public class OrderCar {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)

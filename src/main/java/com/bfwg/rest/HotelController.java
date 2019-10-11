@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -54,6 +55,7 @@ public class HotelController {
                 .build(), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/hotel/create", method = RequestMethod.POST)
     public ResponseEntity<Object> createHotel(@Valid @RequestBody HotelDto hotelDto) {
         Optional<Tour> tour = tourRepository.findById(hotelDto.getTourId());
@@ -73,6 +75,7 @@ public class HotelController {
                 .build(), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/hotel/edit/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> editHotel(@PathVariable Long id,@Valid @RequestBody HotelDto hotelDto){
         Optional<Tour> tour = tourRepository.findById(hotelDto.getTourId());
@@ -113,6 +116,24 @@ public class HotelController {
                 .setStatus(HttpStatus.OK.value())
                 .setMessage("Success!")
                 .setData(hotelDto)
+                .build(), HttpStatus.OK);
+    }
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/hotel/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteHotel(@PathVariable (value = "id") Long carId) {
+        Optional<Hotel> hotel = hotelRepository.findById(carId);
+        if (!hotel.isPresent()){
+            return new ResponseEntity<>(new RESTResponse.Success()
+                    .setStatus(HttpStatus.NOT_FOUND.value())
+                    .setMessage("HOTEL NOT FOUND!")
+                    .setData(null)
+                    .build(), HttpStatus.NOT_FOUND);
+        }
+        hotelRepository.delete(hotel.get());
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Success!")
+                .setData(null)
                 .build(), HttpStatus.OK);
     }
 

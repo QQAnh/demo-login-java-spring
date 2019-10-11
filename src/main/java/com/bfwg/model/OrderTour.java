@@ -4,12 +4,13 @@ package com.bfwg.model;
 import com.bfwg.dto.OrderTourDto;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "order_tour")
 public class OrderTour {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
@@ -20,7 +21,11 @@ public class OrderTour {
     @JoinColumn(name = "tourId", nullable = false)
     private Tour tourId;
 
+    private String token;
     private String season;
+    private int status;
+    private long date;
+
     @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
     @JoinColumn(name = "groupTypeId", nullable = false)
     private GroupType groupTypeId;
@@ -28,8 +33,37 @@ public class OrderTour {
     public OrderTour(OrderTourDto orderTourDto) {
         this.id = orderTourDto.getId();
         this.season = orderTourDto.getSeason();
+        this.token = orderTourDto.getToken();
+        this.status = orderTourDto.getStatus();
+        this.date = orderTourDto.getDate();
     }
 
+    public OrderTour() {
+    }
+
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public long getId() {
         return id;

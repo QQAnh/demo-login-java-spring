@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -31,6 +32,7 @@ public class GroupTypeController {
                 .build(), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/groupType/create", method = RequestMethod.POST)
     public ResponseEntity<Object> createPost(@Valid @RequestBody GroupTypeDto groupTypeDto) {
         GroupType groupType = new GroupType(groupTypeDto);
@@ -60,6 +62,7 @@ public class GroupTypeController {
                 .build(), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/groupType/edit/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateGroupType(@PathVariable Long id, @Valid @RequestBody GroupTypeDto groupTypeDto) {
         Optional<GroupType> groupType = groupTypeRepository.findById(id);

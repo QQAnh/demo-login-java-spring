@@ -106,7 +106,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/flight/**").permitAll()
                 .antMatchers("/api/hotel/**").permitAll()
                 .antMatchers("/api/orderTour/**").permitAll()
-
+                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated().and()
                 .addFilterBefore(new TokenAuthenticationFilter(tokenHelper, jwtUserDetailsService), BasicAuthenticationFilter.class);
 

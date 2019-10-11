@@ -9,7 +9,7 @@ import java.util.Set;
 @Table(name = "group_type")
 public class GroupType {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
 //    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "orderTour")

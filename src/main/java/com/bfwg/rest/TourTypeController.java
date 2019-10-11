@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Optional;
@@ -26,7 +27,7 @@ public class TourTypeController {
                 .setData(tourTypeRepository.findAll().stream().map(x -> new TourTypeDto(x)).collect(Collectors.toList()))
                 .build(), HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/tourType/create", method = RequestMethod.POST)
     public ResponseEntity<Object> createTourType(@Valid @RequestBody TourTypeDto tourTypeDto) {
         TourType tourType = new TourType(tourTypeDto);
@@ -56,7 +57,7 @@ public class TourTypeController {
                 .setData(tourTypeDto)
                 .build(), HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/tourType/edit/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> get(@PathVariable Long id,@Valid @RequestBody TourTypeDto tourTypeDto){
         Optional<TourType> tourType = tourTypeRepository.findById(id);

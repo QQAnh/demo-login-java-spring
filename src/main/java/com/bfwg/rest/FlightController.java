@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -47,6 +48,7 @@ public class FlightController {
                 .build(), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/flight/create", method = RequestMethod.POST)
     public ResponseEntity<Object> createFlight(@Valid @RequestBody FlightDto flightDto) {
         Optional<Tour> tour = tourRepository.findById(flightDto.getTour());
@@ -93,7 +95,7 @@ public class FlightController {
                 .build(), HttpStatus.OK);
     }
 
-
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/flight/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> editFlight(@PathVariable Long id,@Valid @RequestBody FlightDto flightDto){
         Optional<Tour> tour = tourRepository.findById(flightDto.getTour());
@@ -135,6 +137,25 @@ public class FlightController {
                 .setStatus(HttpStatus.OK.value())
                 .setMessage("Success!")
                 .setData(flightDto)
+                .build(), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/flight/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteFlight(@PathVariable (value = "id") Long carId) {
+        Optional<Flight> flight = flightRepository.findById(carId);
+        if (!flight.isPresent()){
+            return new ResponseEntity<>(new RESTResponse.Success()
+                    .setStatus(HttpStatus.NOT_FOUND.value())
+                    .setMessage("FLIGHT NOT FOUND!")
+                    .setData(null)
+                    .build(), HttpStatus.NOT_FOUND);
+        }
+        flightRepository.delete(flight.get());
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Success!")
+                .setData(null)
                 .build(), HttpStatus.OK);
     }
 
