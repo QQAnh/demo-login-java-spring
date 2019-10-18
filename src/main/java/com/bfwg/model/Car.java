@@ -17,7 +17,7 @@ public class Car {
     @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
 //    @NotFound(
 //            action = NotFoundAction.IGNORE)
-    @JoinColumn(name = "model_id", nullable = false)
+    @JoinColumn(name = "model_id", nullable = true)
     private ModelCar model;
     private String size;
     private int seatingCapacity;

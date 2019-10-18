@@ -13,15 +13,19 @@ public class OrderCar {
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-    @JoinColumn(name = "car_id", nullable = false)
+    @JoinColumn(name = "car_id", nullable = true)
     private Car carId;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = true)
     private User userId;
     private String season;
     private Date rental_day;
     private Date start_day;
+    private String token;
+
+    private long date;
+    private int status;
 
 
     public OrderCar() {
@@ -32,6 +36,30 @@ public class OrderCar {
         this.rental_day = orderCarDto.getRental_day();
         this.season = orderCarDto.getSeason();
         this.start_day = orderCarDto.getStart_day();
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public long getId() {

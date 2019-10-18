@@ -10,6 +10,14 @@ public class OrderCarDto {
     private String season;
     private Date rental_day;
     private Date start_day;
+    private long date;
+    private int status;
+    private String token;
+    private Double price;
+    private String userName;
+    private String carName;
+
+
 
     public OrderCarDto() {
     }
@@ -19,8 +27,62 @@ public class OrderCarDto {
         this.carId = orderCar.getCarId().getId();
         this.userId = orderCar.getUserId().getId();
         this.season = orderCar.getSeason();
+        this.userName = orderCar.getUserId().getUsername();
         this.rental_day = orderCar.getRental_day();
         this.start_day = orderCar.getStart_day();
+        this.date = orderCar.getDate();
+        this.status = orderCar.getStatus();
+        this.token = orderCar.getToken();
+        this.price = orderCar.getCarId().getPrice();
+        this.carName = orderCar.getCarId().getName();
+    }
+
+    public String getCarName() {
+        return carName;
+    }
+
+    public void setCarName(String carName) {
+        this.carName = carName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public long getId() {

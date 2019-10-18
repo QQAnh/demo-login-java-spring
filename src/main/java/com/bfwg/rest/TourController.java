@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -50,7 +51,7 @@ public class TourController {
                 .setData(tours.stream().map(x -> new TourDto(x)).collect(Collectors.toList()))
                 .setPagination(new RESTPagination(Integer.parseInt(page),
                         Integer.parseInt(limit),
-                        tours.getTotalPages(),
+                        tours.getSize(),
                         tours.getNumberOfElements()))
                 .build(), HttpStatus.OK);
     }
@@ -129,6 +130,7 @@ public class TourController {
         }
 //        tour.get().setId(id);
         tour.get().setTitle(tourDto.getTitle());
+        tour.get().setLocation(tourDto.getLocation());
         tour.get().setImage(tourDto.getImage());
         tour.get().setPrice(tourDto.getPrice());
         tour.get().setArrangements(tourDto.getArrangements());
@@ -238,7 +240,7 @@ public class TourController {
             @RequestParam(value = "location", required = false) String location,
             @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "priceMin", required = false) String priceMin,
-            @RequestParam(value = "priceMin", required = false) String priceMax,
+            @RequestParam(value = "priceMax", required = false) String priceMax,
 
             @RequestParam(value = "page", defaultValue = "1") int page,
             @RequestParam(value = "limit", defaultValue = "10") int limit) {
@@ -252,7 +254,7 @@ public class TourController {
         if (priceMin != null) {
             specification = specification.and(new OrderSpecification(new SearchCriteria("price", ">", priceMin)));
         }
-        if (priceMin != null) {
+        if (priceMax != null) {
             specification = specification.and(new OrderSpecification(new SearchCriteria("price", "<", priceMax)));
         }
         Page<Tour> tourPage = tourRepository.findAll(specification, PageRequest.of(page - 1, limit));
@@ -277,6 +279,56 @@ public class TourController {
                 .setData(tourRepository.findAll().stream().map(x -> new TourDto(x.getId(), x.getTitle(), x.getTourType().getId())).collect(Collectors.toList()))
                 .build(), HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/tour/random", method = RequestMethod.GET)
+    public ResponseEntity<Object> getRandomTour() {
+        Random random = new Random();
+        List<Tour> tourList = tourRepository.findAll();
+        ArrayList<Tour> tourArrayList = new ArrayList<>();
+
+        if (tourList.size()>3) {
+            for (int i = 0; i < 3; i++) {
+                int randomInteger = random.nextInt(tourList.size());
+                Tour tour = tourList.get(randomInteger);
+                tourArrayList.add(tour);
+            }
+            return new ResponseEntity<>(new RESTResponse.Success()
+                    .setStatus(HttpStatus.OK.value())
+                    .setMessage("Success!")
+                    .setData(tourArrayList.stream().map(x -> new TourDto(x)).collect(Collectors.toList()))
+                    .build(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Success!")
+                .setData(tourRepository.findAll().stream().map(x -> new TourDto(x)).collect(Collectors.toList()))
+                .build(), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/tour/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteCar(@PathVariable (value = "id") Long tourId)
+    {
+        Optional<Tour> tour = tourRepository.findById(tourId);
+        if (!tour.isPresent()){
+            return new ResponseEntity<>(new RESTResponse.Success()
+                    .setStatus(HttpStatus.NOT_FOUND.value())
+                    .setMessage("CAR NOT FOUND!")
+                    .setData(null)
+                    .build(), HttpStatus.NOT_FOUND);
+        }
+        tour.get().setTourType(null);
+        tour.get().setFlights(null);
+        tour.get().setHotels(null);
+        tourRepository.save(tour.get());
+        tourRepository.delete(tour.get());
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Success!")
+                .setData(null)
+                .build(), HttpStatus.OK);
+    }
+
 
 
 }

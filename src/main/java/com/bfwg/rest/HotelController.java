@@ -7,15 +7,20 @@ import com.bfwg.model.*;
 import com.bfwg.repository.CarRepository;
 import com.bfwg.repository.HotelRepository;
 import com.bfwg.repository.TourRepository;
+import com.bfwg.search.HotelSpecification;
+import com.bfwg.search.SearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -28,11 +33,18 @@ public class HotelController {
     private TourRepository tourRepository;
 
     @RequestMapping(value = "/hotel/getAll", method = RequestMethod.GET)
-    public ResponseEntity<Object> getAllHotel(Pageable pageable) {
+    public ResponseEntity<Object> getAllHotel( @RequestParam(defaultValue = "0") String page,
+                                               @RequestParam(defaultValue = "5") String limit) {
+        List<Hotel> hotels = hotelRepository.findAll();
+
         return new ResponseEntity<>(new RESTResponse.Success()
                 .setStatus(HttpStatus.OK.value())
                 .setMessage("Success!")
-                .setData(hotelRepository.findAll().stream().map(x -> new HotelDto(x)).collect(Collectors.toList()))
+                .setData(hotelRepository.findAll(PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit))).stream().map(x -> new HotelDto(x)).collect(Collectors.toList()))
+                .setPagination(new RESTPagination(Integer.parseInt(page),
+                        Integer.parseInt(limit),
+                        hotels.size(),
+                        hotels.size()))
                 .build(), HttpStatus.OK);
     }
 
@@ -129,6 +141,8 @@ public class HotelController {
                     .setData(null)
                     .build(), HttpStatus.NOT_FOUND);
         }
+        hotel.get().setTourId(null);
+        hotelRepository.save(hotel.get());
         hotelRepository.delete(hotel.get());
         return new ResponseEntity<>(new RESTResponse.Success()
                 .setStatus(HttpStatus.OK.value())
@@ -137,5 +151,35 @@ public class HotelController {
                 .build(), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/hotel/search-test")
+    public ResponseEntity<Object> getList(
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "priceMin", required = false) String priceMin,
+            @RequestParam(value = "priceMax", required = false) String priceMax,
+
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "limit", defaultValue = "10") int limit) {
+        Specification specification = Specification.where(null);
+        if (name != null && name.length() > 0) {
+            specification = specification.and(new HotelSpecification(new SearchCriteria("name", ":", name)));
+        }
+        if (priceMin != null) {
+            specification = specification.and(new HotelSpecification(new SearchCriteria("price", ">", priceMin)));
+        }
+        if (priceMax != null) {
+            specification = specification.and(new HotelSpecification(new SearchCriteria("price", "<", priceMax)));
+        }
+
+        Page<Hotel> hotels = hotelRepository.findAll(specification, PageRequest.of(page - 1, limit));
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Success!")
+                .setData(hotels.getContent().stream().map(x -> new HotelDto(x)).collect(Collectors.toList()))
+                .setPagination(new RESTPagination(page,
+                        limit,
+                        hotels.getTotalPages(),
+                        hotels.getTotalElements()))
+                .build(), HttpStatus.OK);
+    }
 
 }

@@ -1,7 +1,10 @@
 package com.bfwg.rest;
 
+import com.bfwg.dto.OrderCarDto;
 import com.bfwg.dto.OrderTourDto;
+import com.bfwg.model.OrderCar;
 import com.bfwg.model.OrderTour;
+import com.bfwg.repository.OrderCarRepository;
 import com.bfwg.repository.OrderTourRepository;
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
@@ -21,10 +24,13 @@ import java.util.*;
 public class PayPalController {
     @Autowired
     private OrderTourRepository orderTourRepository;
+    @Autowired
+    private OrderCarRepository orderCarRepository;
 
     String clientId = "AWGBliALJLiADitIllmve447RoqUDGMgPvAyD2mo6fxR45dgGJxvGBzjRO0yclq-d_d4pEwGi85Dch9m";
     String clientSecret = "EOEmPkNNuxcRnfzRJkBWb4GRJBNkdA7uYqCRY0JeZOX5vRfN9bBeVw9nqPYZ7-I8xnntK5aVxdkE4i21";
 
+    @PreAuthorize("hasRole('USER')")
     public Map<String, Object> createPayment(String sum){
         Map<String, Object> response = new HashMap<String, Object>();
         Amount amount = new Amount();
@@ -44,8 +50,8 @@ public class PayPalController {
         payment.setTransactions(transactions);
 
         RedirectUrls redirectUrls = new RedirectUrls();
-        redirectUrls.setCancelUrl("http://localhost:8080/cancel");
-        redirectUrls.setReturnUrl("http://localhost:8080/");
+        redirectUrls.setCancelUrl("https://naughty-edison-37ca52.netlify.com/cancel");
+        redirectUrls.setReturnUrl("https://naughty-edison-37ca52.netlify.com/");
         payment.setRedirectUrls(redirectUrls);
         Payment createdPayment;
         try {
@@ -106,12 +112,20 @@ public class PayPalController {
                     .build(), HttpStatus.FORBIDDEN);
         }
         OrderTour orderTour = orderTourRepository.findByToken(token);
+
         if (orderTour == null){
+            OrderCar orderCar = orderCarRepository.findByToken(token);
+            DateTime date = new DateTime();
+            orderCar.setStatus(2);
+            orderCar.setDate(date.getMillis());
+
             return new ResponseEntity<>(new RESTResponse.Success()
-                    .setStatus(HttpStatus.NOT_FOUND.value())
-                    .setMessage("ORDER TOUR NOT FOUND!")
-                    .setData(null)
-                    .build(), HttpStatus.NOT_FOUND);
+                    .setStatus(HttpStatus.OK.value())
+                    .setMessage("Success!")
+                    .setData(
+                            new OrderCarDto(orderCarRepository.save(orderCar))
+                    )
+                    .build(), HttpStatus.OK);
         }
         DateTime date = new DateTime();
 
@@ -124,7 +138,40 @@ public class PayPalController {
                 .setData(
                         new OrderTourDto(orderTourRepository.save(orderTour))
                 )
-                .build(), HttpStatus.OK);    }
+                .build(), HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping(value = "/complete/payment/car")
+    public ResponseEntity<Object> completePaymentCar(@RequestParam("paymentId") String paymentId , @RequestParam("PayerID") String payerId , @RequestParam("token") String token){
+        Payment payment = this.completePaymentSuccess(paymentId,payerId);
+        if (payment == null){
+            return new ResponseEntity<>(new RESTResponse.Success()
+                    .setStatus(HttpStatus.FORBIDDEN.value())
+                    .setMessage("Fails!")
+                    .setData(null)
+                    .build(), HttpStatus.FORBIDDEN);
+        }
+        OrderCar orderCar = orderCarRepository.findByToken(token);
+        if (orderCar == null){
+            return new ResponseEntity<>(new RESTResponse.Success()
+                    .setStatus(HttpStatus.NOT_FOUND.value())
+                    .setMessage("ORDER CAR NOT FOUND!")
+                    .setData(null)
+                    .build(), HttpStatus.NOT_FOUND);
+        }
+        DateTime date = new DateTime();
+        orderCar.setStatus(2);
+        orderCar.setDate(date.getMillis());
+
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Success!")
+                .setData(
+                        new OrderCarDto(orderCarRepository.save(orderCar))
+                )
+                .build(), HttpStatus.OK);
+    }
 
 
 

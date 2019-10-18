@@ -14,11 +14,11 @@ public class OrderTour {
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "userId", nullable = true)
     private User userId;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-    @JoinColumn(name = "tourId", nullable = false)
+    @JoinColumn(name = "tourId", nullable = true)
     private Tour tourId;
 
     private String token;
@@ -27,7 +27,7 @@ public class OrderTour {
     private long date;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-    @JoinColumn(name = "groupTypeId", nullable = false)
+    @JoinColumn(name = "groupTypeId", nullable = true)
     private GroupType groupTypeId;
 
     public OrderTour(OrderTourDto orderTourDto) {

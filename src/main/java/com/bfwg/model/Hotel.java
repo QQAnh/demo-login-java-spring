@@ -18,7 +18,7 @@ public class Hotel {
     private String service;
     private String image;
     @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-    @JoinColumn(name = "tour_id", nullable = false)
+    @JoinColumn(name = "tour_id", nullable = true)
     @JsonIgnore
     private Tour tourId;
 

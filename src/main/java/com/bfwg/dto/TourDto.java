@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -46,6 +47,15 @@ public class TourDto {
     }
 
     public TourDto(Page<Tour> tours) {
+    }
+
+    public TourDto(long id, String title, String image, Double price, long id1) {
+        this.id = id;
+        this.title = title;
+        this.tourType = tourType;
+        this.image = image;
+        this.price = price;
+
     }
 
     public Set<Hotel> getHotels() {

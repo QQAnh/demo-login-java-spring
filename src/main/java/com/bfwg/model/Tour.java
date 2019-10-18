@@ -25,7 +25,7 @@ public class Tour {
     private String duration;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-    @JoinColumn(name = "tourType", nullable = false)
+    @JoinColumn(name = "tourType", nullable = true)
     private TourType tourType;
     private Double price;
 

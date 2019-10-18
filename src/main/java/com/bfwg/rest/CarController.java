@@ -6,10 +6,13 @@ import com.bfwg.model.Car;
 import com.bfwg.model.ModelCar;
 import com.bfwg.repository.CarRepository;
 import com.bfwg.repository.ModelCarRepository;
-import javafx.scene.control.Pagination;
+import com.bfwg.search.CarSpecification;
+import com.bfwg.search.SearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,7 +21,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @RestController
@@ -36,8 +42,9 @@ public class CarController {
 
     @GetMapping("/car/model/{modelId}")
     public ResponseEntity<Object> getAllCarByModelId(@PathVariable(value = "modelId") Long modelId,
-                                                     Pageable pageable) {
-        Page<Car> car = carRepository.findByModelId(modelId, pageable);
+                                                     @RequestParam(defaultValue = "0") String page,
+                                                     @RequestParam(defaultValue = "5") String limit) {
+        List<Car> car = carRepository.findByModelId(modelId,  PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit)));
         if (!modelCarRepository.findById(modelId).isPresent()) {
             return new ResponseEntity<>(new RESTResponse.Success()
                     .setStatus(HttpStatus.NOT_FOUND.value())
@@ -45,10 +52,15 @@ public class CarController {
                     .setData(null)
                     .build(), HttpStatus.NOT_FOUND);
         }
+        System.out.println(car.size());
         return new ResponseEntity<>(new RESTResponse.Success()
                 .setStatus(HttpStatus.OK.value())
                 .setMessage("Success!")
                 .setData(car.stream().map(x -> new CarDto(x)).collect(Collectors.toList()))
+                .setPagination(new RESTPagination(Integer.parseInt(page),
+                        Integer.parseInt(limit),
+                        car.size(),
+                        car.size()))
                 .build(), HttpStatus.OK);
     }
 
@@ -74,11 +86,18 @@ public class CarController {
 
     //    @PreAuthorize("hasRole('USER')")
     @RequestMapping(value = "/car/getAll", method = RequestMethod.GET)
-    public ResponseEntity<Object> getAllCar(Pageable pageable) {
+    public ResponseEntity<Object> getAllCar(@RequestParam(defaultValue = "0") String page,
+                                            @RequestParam(defaultValue = "5") String limit) {
+        List<Car> cars = carRepository.findAll();
+
         return new ResponseEntity<>(new RESTResponse.Success()
                 .setStatus(HttpStatus.OK.value())
                 .setMessage("Success!")
-                .setData(carRepository.findAll().stream().map(x -> new CarDto(x)).collect(Collectors.toList()))
+                .setData(carRepository.findAll(PageRequest.of(Integer.parseInt(page), Integer.parseInt(limit))).stream().map(x -> new CarDto(x)).collect(Collectors.toList()))
+                .setPagination(new RESTPagination(Integer.parseInt(page),
+                        Integer.parseInt(limit),
+                        cars.size(),
+                        cars.size()))
                 .build(), HttpStatus.OK);
     }
 
@@ -203,22 +222,81 @@ public class CarController {
 //
 //    }
     @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/car/{carId}/comments/{modelId}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteCar(@PathVariable (value = "carId") Long carId,
-                                           @PathVariable (value = "modelId") Long modelId) {
-        Optional<Car> car = carRepository.findById(carId);
-        if (!car.isPresent()){
+    @RequestMapping(value = "/car/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteCar(@PathVariable (value = "id") Long carId)
+                                           {
+//        Optional<Car> car = carRepository.findById(carId);
+         Car car = carRepository.findCarById(carId);
+        if (car == null){
             return new ResponseEntity<>(new RESTResponse.Success()
                     .setStatus(HttpStatus.NOT_FOUND.value())
                     .setMessage("CAR NOT FOUND!")
                     .setData(null)
                     .build(), HttpStatus.NOT_FOUND);
         }
-        carRepository.delete(car.get());
+        car.setModel(null);
+        carRepository.save(car);
+        carRepository.delete(car);
         return new ResponseEntity<>(new RESTResponse.Success()
                 .setStatus(HttpStatus.OK.value())
                 .setMessage("Success!")
                 .setData(null)
+                .build(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/car/search-test")
+    public ResponseEntity<Object> getList(
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "priceMin", required = false) String priceMin,
+            @RequestParam(value = "priceMax", required = false) String priceMax,
+
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "limit", defaultValue = "10") int limit) {
+        Specification specification = Specification.where(null);
+        if (name != null && name.length() > 0) {
+            specification = specification.and(new CarSpecification(new SearchCriteria("name", ":", name)));
+        }
+        if (priceMin != null) {
+            specification = specification.and(new CarSpecification(new SearchCriteria("price", ">", priceMin)));
+        }
+        if (priceMax != null) {
+            specification = specification.and(new CarSpecification(new SearchCriteria("price", "<", priceMax)));
+        }
+
+        Page<Car> cars = carRepository.findAll(specification, PageRequest.of(page - 1, limit));
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Success!")
+                .setData(cars.getContent().stream().map(x -> new CarDto(x)).collect(Collectors.toList()))
+                .setPagination(new RESTPagination(page,
+                        limit,
+                        cars.getTotalPages(),
+                        cars.getTotalElements()))
+                .build(), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/car/random", method = RequestMethod.GET)
+    public ResponseEntity<Object> getRandomTour() {
+        Random random = new Random();
+        List<Car> cars = carRepository.findAll();
+        ArrayList<Car> tourArrayList = new ArrayList<>();
+
+        if (cars.size()>3) {
+            for (int i = 0; i < 3; i++) {
+                int randomInteger = random.nextInt(cars.size());
+                Car tour = cars.get(randomInteger);
+                tourArrayList.add(tour);
+            }
+            return new ResponseEntity<>(new RESTResponse.Success()
+                    .setStatus(HttpStatus.OK.value())
+                    .setMessage("Success!")
+                    .setData(tourArrayList.stream().map(x -> new CarDto(x)).collect(Collectors.toList()))
+                    .build(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new RESTResponse.Success()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Success!")
+                .setData(tourArrayList.stream().map(x -> new CarDto(x)).collect(Collectors.toList()))
                 .build(), HttpStatus.OK);
     }
 }

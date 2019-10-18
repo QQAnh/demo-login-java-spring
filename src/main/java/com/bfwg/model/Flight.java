@@ -21,7 +21,7 @@ public class Flight {
     private String image;
     @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
     @JsonIgnore
-    @JoinColumn(name = "tour_id", nullable = false)
+    @JoinColumn(name = "tour_id", nullable = true)
     private Tour tour;
 
 
